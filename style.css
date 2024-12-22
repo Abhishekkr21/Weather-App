@@ -1,153 +1,234 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, 'Open Sans', sans-serif;
+}
+
+:root {
+    --primary-color: #00b4db;
+    --secondary-color: #0083b0;
+    --text-color: #333;
+    --background-color: rgba(255, 255, 255, 0.9);
+}
+
+html {
+    font-size: 16px;
+}
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to bottom, #3498db, #2c3e50);
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  overflow: hidden; /* Prevents horizontal scrollbar */
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    min-height: 100vh;
+    min-height: -webkit-fill-available; /* For iOS Safari */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(10px, 3vw, 20px);
+    overflow-x: hidden;
 }
 
-#app {
-  background: linear-gradient(to right, #ecf0f1, #bdc3c7);
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  width: 80%;
-  max-width: 400px;
-  text-align: center;
-  padding: 20px;
-  box-sizing: border-box;
-  color: #333;
-  position: relative;
-  transition: transform 0.3s ease-in-out;
+/* Fix for iOS Safari height issue */
+@supports (-webkit-touch-callout: none) {
+    body {
+        min-height: -webkit-fill-available;
+    }
 }
 
-#app:hover {
-  transform: scale(1.02);
+.container {
+    background: var(--background-color);
+    padding: clamp(1rem, 4vw, 2rem);
+    border-radius: clamp(10px, 3vw, 20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 h1 {
-  margin-bottom: 15px;
-  color: #3498db;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: clamp(1rem, 4vw, 2rem);
+    font-size: clamp(1.5rem, 5vw, 2rem);
 }
 
 .search-container {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 10px;
-  color: #555;
+    display: flex;
+    gap: 10px;
+    margin-bottom: clamp(1rem, 4vw, 2rem);
 }
 
 input {
-  padding: 12px;
-  margin-bottom: 15px;
-  width: calc(100% - 24px);
-  box-sizing: border-box;
-  border: 1px solid #3498db;
-  border-radius: 6px;
-  transition: border-color 0.3s ease-in-out;
+    flex: 1;
+    padding: clamp(8px, 2vw, 12px);
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
 input:focus {
-  border-color: #2980b9;
+    border-color: var(--primary-color);
 }
 
 button {
-  padding: 12px 18px;
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  width: calc(100% - 24px);
-  box-sizing: border-box;
-  transition: background-color 0.3s ease-in-out;
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    -webkit-tap-highlight-color: transparent;
 }
 
 button:hover {
-  background-color: #2980b9;
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
 }
 
 .weather-container {
-  display: none;
-  margin-top: 25px;
+    display: none;
+    text-align: center;
+    transition: opacity 0.3s ease;
 }
 
-#weather-icon {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 15px;
+.main-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(10px, 3vw, 20px);
+    margin-bottom: clamp(0.5rem, 2vw, 1rem);
+    flex-wrap: wrap;
 }
 
-p {
-  margin: 0;
-  color: #555;
+.temperature-group {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(5px, 2vw, 10px);
+}
+
+.temperature {
+    font-size: clamp(2rem, 8vw, 3rem);
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.unit-btn {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    padding: clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 16px);
+}
+
+.city-name {
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    color: #444;
+    margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
+}
+
+.description {
+    color: #666;
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+.additional-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: clamp(0.5rem, 2vw, 1rem);
+    padding: clamp(0.8rem, 2vw, 1rem);
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3px, 1vw, 5px);
+    align-items: center;
+    padding: clamp(5px, 1.5vw, 10px);
+}
+
+.info-item i {
+    color: var(--primary-color);
+    font-size: clamp(1rem, 3vw, 1.2rem);
+}
+
+.info-item span {
+    font-size: clamp(0.8rem, 2.2vw, 0.9rem);
 }
 
 .footer {
-  margin-top: 30px;
-  padding: 15px;
-  background-color: #3498db;
-  color: #fff;
-  border-radius: 0 0 8px 8px;
-  opacity: 0.8;
-  transition: opacity 0.3s ease-in-out;
+    text-align: center;
+    color: white;
+    margin-top: clamp(1rem, 4vw, 2rem);
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
 }
 
-.footer p {
-  margin: 0;
-  font-size: 14px;
+/* Touch device optimizations */
+@media (hover: none) {
+    button:hover {
+        transform: none;
+    }
 }
 
-.footer:hover {
-  opacity: 1;
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #fff;
+        --background-color: rgba(30, 30, 30, 0.9);
+    }
+
+    input {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+
+    .description {
+        color: #ccc;
+    }
+
+    .additional-info {
+        background: rgba(255, 255, 255, 0.1);
+    }
 }
 
-/* Background pattern */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: url('https://www.transparenttextures.com/patterns/carbon-fibre-big.png');
-  opacity: 0.2;
-  z-index: -1;
+/* Landscape mode optimization */
+@media (max-height: 600px) and (orientation: landscape) {
+    body {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .container {
+        margin-bottom: 20px;
+    }
+
+    .main-info {
+        flex-direction: row;
+    }
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+/* Print styles */
+@media print {
+    body {
+        background: none;
+    }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
+    .container {
+        box-shadow: none;
+        max-width: 100%;
+    }
 
-#app {
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-#weather-icon,
-.button-icon {
-  animation: float 2s infinite ease-in-out;
+    .search-container,
+    .unit-btn {
+        display: none;
+    }
 }
